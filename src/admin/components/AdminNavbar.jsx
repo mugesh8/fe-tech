@@ -9,7 +9,7 @@ const AdminNavbar = () => {
   return (
     <div style={{width:'100%'}}>
     <Navbar expand="lg" className="m-0" style={{border:'none', backgroundColor:'white'}}> 
-    <Navbar.Brand as={Link} to="/" style={{fontSize:'30px', fontWeight:'500', color:'#111111'}}>Enterprise AI Hub</Navbar.Brand>
+    <Navbar.Brand as={Link} to="/" style={{fontSize:'30px', fontWeight:'500', color:'#111111'}}>Products</Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="ml-auto">

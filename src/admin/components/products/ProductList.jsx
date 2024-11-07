@@ -1,40 +1,40 @@
-import React, { useState } from 'react'
-import '../products/ProductList.css'
+import React, { useState } from 'react';
+import '../products/ProductList.css';
 
 const ProductList = () => {
-  // Define data and pagination state at the beginning of the component
   const data = [
     { id: 'PA89', product: 'AC Spares', organization: 'Tools Mart', mrfRate: 2500, techRate: 2500, distRate: 2500 },
-    { id: 'PA89', product: 'AC Spares', organization: 'Tools Mart', mrfRate: 2500, techRate: 2500, distRate: 2500 },
-    { id: 'PA89', product: 'AC Spares', organization: 'Tools Mart', mrfRate: 2500, techRate: 2500, distRate: 2500 },
-    { id: 'PA89', product: 'AC Spares', organization: 'Tools Mart', mrfRate: 2500, techRate: 2500, distRate: 2500 },
-    { id: 'PA89', product: 'AC Spares', organization: 'Tools Mart', mrfRate: 2500, techRate: 2500, distRate: 2500 },
-    { id: 'PA89', product: 'AC Spares', organization: 'Tools Mart', mrfRate: 2500, techRate: 2500, distRate: 2500 },
-    { id: 'PA89', product: 'AC Spares', organization: 'Tools Mart', mrfRate: 2500, techRate: 2500, distRate: 2500 },
-    { id: 'PA89', product: 'AC Spares', organization: 'Tools Mart', mrfRate: 2500, techRate: 2500, distRate: 2500 },
+    // ... other data
   ];
 
-  // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const totalPages = Math.ceil(data.length / itemsPerPage);
+
+  // State to handle modal visibility
+  const [isModalOpen, setModalOpen] = useState(false);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
 
+  // Function to toggle modal visibility
+  const toggleModal = () => {
+    setModalOpen(!isModalOpen);
+  };
+
   return (
     <div>
       {/* Search and Add Product Section */}
-      <div className='searches'>
-        <div className="searchInputs" id='searchBox'>
+      <div className="searches">
+        <div className="searchInputs" id="searchBox">
           <input type="text" className="search-input" placeholder="Search Product" />
           <div className="searchIcons">
-            <i className="bi bi-search" style={{color:'#808080'}}></i>
+            <i className="bi bi-search" style={{ color: '#808080' }}></i>
           </div>
         </div>
-        <div className='add-btn'>
-          <button>
+        <div className="add-btn">
+          <button onClick={toggleModal}>
             <i className="bi bi-plus-circle"></i> Add Product
           </button>
         </div>
@@ -75,43 +75,47 @@ const ProductList = () => {
             </tbody>
           </table>
         </div>
+      </div>
 
-        {/* Pagination Section */}
-        <div className="flex items-center justify-between p-4">
-          <div className="text-sm text-gray-600">
-            Showing 1 to {Math.min(itemsPerPage, data.length)} of {data.length} entries
-          </div>
-          <div className="flex gap-1">
-            <button
-              onClick={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
-              className="px-3 py-1 border rounded hover:bg-gray-50 disabled:opacity-50"
-            >
-              &lt;
-            </button>
-            {[...Array(totalPages)].map((_, i) => (
-              <button
-                key={i}
-                onClick={() => handlePageChange(i + 1)}
-                className={`px-3 py-1 border rounded hover:bg-gray-50 ${
-                  currentPage === i + 1 ? 'bg-blue-50 border-blue-200' : ''
-                }`}
-              >
-                {i + 1}
+      {/* Modal Component */}
+      {isModalOpen && (
+        <div className="modal-overlay" onClick={toggleModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <h2>Add product/edit product</h2>
+            <form className='productPopupForm'>
+              <div>
+                <label>Name Product</label>
+                <input type="text" placeholder="Emerson Refrigerator Compressor New" />
+              </div>
+              <div>
+                <label>MRF Rate</label>
+                <input type="text" />
+              </div>
+              <div>
+                <label>Technicians Rate</label>
+                <input type="text" />
+              </div>
+              <div>
+                <label>Distributors Rate</label>
+                <input type="text" />
+              </div>
+              <div>
+                <label>About Product</label>
+                <textarea rows="3"></textarea>
+              </div>
+              <div>
+                <label>Upload Image</label>
+                <input type="file" />
+              </div>
+              <button type="button" className="btn-save" onClick={toggleModal}>
+                Save
               </button>
-            ))}
-            <button
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
-              className="px-3 py-1 border rounded hover:bg-gray-50 disabled:opacity-50"
-            >
-              &gt;
-            </button>
+            </form>
           </div>
         </div>
-      </div>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default ProductList
+export default ProductList;
