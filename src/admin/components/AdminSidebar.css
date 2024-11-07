@@ -1,0 +1,15 @@
+.Dashboardlogo img{
+    width: 211px;
+    margin-top: 24px;
+    margin-left: 30px;
+}
+
+.general{
+    color: #808080;
+    margin-top: 25%;
+    font-size: 16px;
+}
+
+.generalLinks ul li{
+    line-height: 60px;
+}

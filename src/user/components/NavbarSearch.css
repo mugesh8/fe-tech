@@ -1,0 +1,33 @@
+.search-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 50%;
+    height: 60px;
+    border-radius: 20px;
+    margin-top: 50px;
+    margin-left: 400px;
+    border: 1px solid #808080;
+    padding: 0 15px;
+}
+
+.search-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    height: 100%;
+    padding-left: 15px;
+}
+
+.search-icons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.divider {
+    width: 1px;
+    height: 40px;
+    background-color: #808080;
+    margin: 0 10px;
+}

@@ -1,0 +1,32 @@
+.searches{
+    display: flex;
+    margin-top: 10px;
+}
+
+.searchInputs{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 60%;
+    height: 48px;
+    border-radius: 10px;
+    margin-top: 0%;
+    border: 1px solid #808080;
+    padding: 0 15px; /* Optional for extra spacing */
+}
+
+.searchInput input::placeholder{
+    padding: 20px !important;
+}
+
+.searchIcons{
+    position: absolute;
+}
+
+.add-btn button{
+    height: 48px;
+    font-size: 24px !important;
+    margin-left: 100% !important;
+    background: #F24E1E;
+
+}
