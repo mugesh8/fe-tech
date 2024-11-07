@@ -1,40 +1,40 @@
-import React, { useState } from 'react';
-import '../products/ProductList.css';
+import React, { useState } from 'react'
+import '../products/ProductList.css'
 
 const ProductList = () => {
+  // Define data and pagination state at the beginning of the component
   const data = [
     { id: 'PA89', product: 'AC Spares', organization: 'Tools Mart', mrfRate: 2500, techRate: 2500, distRate: 2500 },
-    // ... other data
+    { id: 'PA89', product: 'AC Spares', organization: 'Tools Mart', mrfRate: 2500, techRate: 2500, distRate: 2500 },
+    { id: 'PA89', product: 'AC Spares', organization: 'Tools Mart', mrfRate: 2500, techRate: 2500, distRate: 2500 },
+    { id: 'PA89', product: 'AC Spares', organization: 'Tools Mart', mrfRate: 2500, techRate: 2500, distRate: 2500 },
+    { id: 'PA89', product: 'AC Spares', organization: 'Tools Mart', mrfRate: 2500, techRate: 2500, distRate: 2500 },
+    { id: 'PA89', product: 'AC Spares', organization: 'Tools Mart', mrfRate: 2500, techRate: 2500, distRate: 2500 },
+    { id: 'PA89', product: 'AC Spares', organization: 'Tools Mart', mrfRate: 2500, techRate: 2500, distRate: 2500 },
+    { id: 'PA89', product: 'AC Spares', organization: 'Tools Mart', mrfRate: 2500, techRate: 2500, distRate: 2500 },
   ];
 
+  // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const totalPages = Math.ceil(data.length / itemsPerPage);
 
-  // State to handle modal visibility
-  const [isModalOpen, setModalOpen] = useState(false);
-
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-  };
-
-  // Function to toggle modal visibility
-  const toggleModal = () => {
-    setModalOpen(!isModalOpen);
-  };
+//   const handlePageChange = (page) => {
+//     setCurrentPage(page);
+//   };
 
   return (
     <div>
       {/* Search and Add Product Section */}
-      <div className="searches">
-        <div className="searchInputs" id="searchBox">
+      <div className='searches'>
+        <div className="searchInputs" id='searchBox'>
           <input type="text" className="search-input" placeholder="Search Product" />
           <div className="searchIcons">
-            <i className="bi bi-search" style={{ color: '#808080' }}></i>
+            <i className="bi bi-search" style={{color:'#808080'}}></i>
           </div>
         </div>
-        <div className="add-btn">
-          <button onClick={toggleModal}>
+        <div className='add-btn'>
+          <button>
             <i className="bi bi-plus-circle"></i> Add Product
           </button>
         </div>
@@ -75,47 +75,12 @@ const ProductList = () => {
             </tbody>
           </table>
         </div>
+
+        {/* Pagination Section */}
+       
       </div>
-
-      {/* Modal Component */}
-      {isModalOpen && (
-        <div className="modal-overlay" onClick={toggleModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <h2>Add product/edit product</h2>
-            <form className='productPopupForm'>
-              <div>
-                <label>Name Product</label>
-                <input type="text" placeholder="Emerson Refrigerator Compressor New" />
-              </div>
-              <div>
-                <label>MRF Rate</label>
-                <input type="text" />
-              </div>
-              <div>
-                <label>Technicians Rate</label>
-                <input type="text" />
-              </div>
-              <div>
-                <label>Distributors Rate</label>
-                <input type="text" />
-              </div>
-              <div>
-                <label>About Product</label>
-                <textarea rows="3"></textarea>
-              </div>
-              <div>
-                <label>Upload Image</label>
-                <input type="file" />
-              </div>
-              <button type="button" className="btn-save" onClick={toggleModal}>
-                Save
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
     </div>
-  );
-};
+  )
+}
 
-export default ProductList;
+export default ProductList
