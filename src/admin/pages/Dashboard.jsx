@@ -5,6 +5,7 @@ import AdminSidebar from '../components/AdminSidebar';
 import '../pages/Dashboard.css'
 import ProductList from '../components/products/ProductList';
 import Forum from '../components/products/Forum';
+import Technicians from '../components/products/Technicians';
 export default function Dashboard(){
     const location = useLocation();
     const renderContent = () => {
@@ -19,6 +20,12 @@ export default function Dashboard(){
                 return(
                     <div>
                         <Forum/>
+                    </div>
+                )
+                case '/Dashboard/technicians':
+                return(
+                    <div>
+                        <Technicians/>
                     </div>
                 )
             default:

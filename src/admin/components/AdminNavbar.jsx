@@ -14,7 +14,7 @@ const AdminNavbar = () => {
     <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="ml-auto">
         <input placeholder='Search Anything...' type="search" name="search" id="search"/>
-        <Nav.Link as={Link} to="/cart"><img src={notify} alt="notify" srcset="" /></Nav.Link>
+        <Nav.Link as={Link} to="/cart"><img src={notify} alt="notify" srcset="" style={{marginTop: '7px'}} /></Nav.Link>
         <Nav.Link as={Link} to ="/logout"><img style={{width:'48px', height:'48px', borderRadius: '5px'}} src={userLogo} alt="logout" /></Nav.Link>
       </Nav>
     </Navbar.Collapse>

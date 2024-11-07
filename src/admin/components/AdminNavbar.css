@@ -20,3 +20,7 @@ a.navbar-brand{
     border: none;
     border-radius: 10px;
 }
+
+.searchInputs input::placeholder{
+    padding: 20px !important;
+}
