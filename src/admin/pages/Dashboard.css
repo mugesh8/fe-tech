@@ -2,3 +2,8 @@
     width: 95%;
     margin-top: -1%;
 }
+
+main{
+    overflow: scroll;
+    height: 80vh;
+}

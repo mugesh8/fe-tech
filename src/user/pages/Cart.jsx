@@ -1,12 +1,16 @@
 import '../pages/Cart.css';
 import {useCart} from './CartContext'
+import NavBar from '../components/NavBar';
 import outdoorStand from '../assets/ac-outdoor-stand.png';
 
 const Cart = ({ cartItems }) => {
     const totalAmount = cartItems.reduce((total, item) => total + item.price, 0);
   
     return (
-      <div className="cart-container">
+      
+      <>
+      <NavBar />
+       <div className="cart-container">
         <h2>Your Cart : {cartItems.length} items</h2>
         <div className="cart-content">
           <table className="cart-table">
@@ -41,6 +45,7 @@ const Cart = ({ cartItems }) => {
           </div>
         </div>
       </div>
+      </>
     );
   };
   

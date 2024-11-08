@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route , useLocation} from 'react-router-dom';
 import AdminNavbar from '../components/AdminNavbar';
 import AdminSidebar from '../components/AdminSidebar';
+import ProductViewDetails from '../components/products/ProductViewDetails';
 import '../pages/Dashboard.css'
 import ProductList from '../components/products/ProductList';
 import Forum from '../components/products/Forum';
@@ -21,6 +22,12 @@ export default function Dashboard(){
                 return(
                     <div>
                         <ProductView/>
+                    </div>
+                )
+                case'/Dashboard/productViewDetails':
+                return(
+                    <div>
+                        <ProductViewDetails/>
                     </div>
                 )
             case '/Dashboard/forum':
