@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom'
 import logo from '../assets/RiM-Logo.png'
 import userLogo from '../assets/user-logo.png'
 import '../components/NavBar.css'
-import Login from '../../Auth/Login'
 
 const NavBar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
@@ -18,6 +17,11 @@ const NavBar = () => {
     navigate('../../Auth/Login')
   }
 
+  const handleSignupClick = () => {
+    toggleDropdown()
+    navigate('../../Auth/Signup')
+  }
+
   return (
     <nav>
       <div className='nav-1'>
@@ -28,8 +32,8 @@ const NavBar = () => {
           {isDropdownOpen && (
             <div className='dropdown-menu'>
               <a href="/Auth/Login" onClick={handleLoginClick}>Login</a>
-              {/* <a href="#">Order</a>
-              <a href="#">Logout</a> */}
+              <a href="/Auth/Signup" onClick={handleSignupClick}>Signup</a>
+              <a href="#">Logout</a>
             </div>
           )}
         </div>

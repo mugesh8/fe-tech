@@ -4,11 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import { Share2 } from 'lucide-react';
 import '../products/ProductView.css';
 import compressor from '../../assets/compressor-img.png';
-
+ 
 const ProductView = () => {
   const [products, setProducts] = useState([]); // State to store fetched products
   const navigate = useNavigate();
-
+ 
   // Fetch products from API
   useEffect(() => {
     const fetchProducts = async () => {
@@ -19,21 +19,21 @@ const ProductView = () => {
         console.error('Error fetching products:', error);
       }
     };
-
+ 
     fetchProducts();
   }, []);
-
+ 
   // Navigate to product details
   const handleProductViewDetails = (product) => {
-    
-    navigate(`/Dashboard/productViewDetails/${product.id}`);
+   
+    navigate(`/Dashboard/productViewDetails/${product.product_id}`);
   };
-
+ 
   return (
     <div className="productViewContainer">
       {products.map((product) => (
         <div key={product.id} className="productViewCard">
-          <img src={product.image_url || compressor} alt={product.name} />
+          <img src={`http://localhost:5000/${product.first_image}`|| compressor} alt={product.name} />
           <p>{product.name}</p>
           <div className="line"><span></span></div>
           <div className="productMrp"><h4>Rs-{product.mrp_rate}</h4></div>
@@ -54,5 +54,5 @@ const ProductView = () => {
     </div>
   );
 };
-
+ 
 export default ProductView;

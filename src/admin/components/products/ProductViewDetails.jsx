@@ -2,73 +2,100 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import '../products/ProductViewDetails.css';
-import compressor from '../../assets/compressor-img.png';
-
+import defaultImage from '../../assets/compressor-img.png';
+ 
 const ProductViewDetails = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
-
+  const [mainImage, setMainImage] = useState(defaultImage);
+ 
   useEffect(() => {
     const fetchProductDetails = async () => {
       try {
         const response = await axios.get(`http://localhost:5000/rim/productDetail/${id}`);
-        setProduct(response.data);
+        const fetchedProduct = response.data.product;
+ 
+        // Split the images string into an array if it exists
+        if (fetchedProduct.images) {
+          fetchedProduct.images = fetchedProduct.images.split(',');
+          setMainImage(fetchedProduct.images[0]);
+        }
+       
+        setProduct(fetchedProduct);
       } catch (error) {
         console.error('Error fetching product details:', error);
       }
     };
-
+ 
     fetchProductDetails();
   }, [id]);
-
+ 
   if (!product) {
     return <div>Loading...</div>;
   }
-
+ 
   return (
-    <>
-      <div className="productDetailsContainer">
-        <section className="section-1">
-          <div className="productImageSection">
-            <img src={compressor} alt="Main Product" className="mainImage" />
-            <div className="thumbnailGallery">
-              {/* Repeat thumbnail images */}
-              <img src={compressor} alt="Thumbnail 1" className="thumbnail" />
-              <img src={compressor} alt="Thumbnail 2" className="thumbnail" />
-              <img src={compressor} alt="Thumbnail 3" className="thumbnail" />
-            </div>
+    <div className="productDetailsContainer" style={{ width: '80%' }}>
+      <section className="section-1">
+        <div className="productImageSection">
+          {/* Main Image */}
+          <img src={`http://localhost:5000/${mainImage}`} alt="Main Product" className="mainImage" />
+ 
+          {/* Thumbnail Gallery */}
+          <div className="thumbnailGallery">
+            {product.images && product.images.length > 0 ? (
+              product.images.map((image, index) => (
+                <img
+                  key={index}
+                  src={`http://localhost:5000/${image}`}
+                  alt={`Thumbnail ${index + 1}`}
+                  className="thumbnail"
+                  onClick={() => setMainImage(image)}
+                />
+              ))
+            ) : (
+              <img src={defaultImage} alt="Default Thumbnail" className="thumbnail" />
+            )}
           </div>
-
-          <div className="productStatsSection">
-            <div className="stockInfo">
-              <p><strong>Stock</strong></p>
-              <p>{product.stock} / Pack</p>
-            </div>
-            <div className="salesInfo">
-              <p><strong>Sales</strong></p>
-              <p>{product.sales} / Pack</p>
-            </div>
+        </div>
+ 
+        {/* Product Stats */}
+        <div className="productStatsSection">
+          <div className="stockInfo">
+            <p><strong>Stock</strong></p>
+            <p>{product.stocks} / Pack</p>
           </div>
-        </section>
-
-        <section className="section-2">
-          <div className="productInfoSection">
-            <h2>{product.name}</h2>
-            <h3 className="productPrice">Rs {product.price}</h3>
-            <p><strong>ID Product:</strong> {product.id}</p>
-
-            <div className="aboutProduct"><h4>About Product</h4></div>
-            <p>{product.description}</p>
-
-            <div className="additionalInfo"><h4>Additional Information</h4></div>
-            <p><strong>Items Detail:</strong> {product.itemsDetail}</p>
-            <p><strong>How to use:</strong> {product.howToUse}</p>
-            <p><strong>Composition:</strong> {product.composition}</p>
+          <div className="salesInfo">
+            <p><strong>Sales</strong></p>
+            <p>{product.sales} / Pack</p>
           </div>
-        </section>
-      </div>
-    </>
+        </div>
+      </section>
+ 
+      <section className="section-2">
+        {/* Product Information */}
+        <div className="productInfoSection">
+          <h2>{product.name}</h2>
+          <h3 className="productPrice">Rs {product.mrp_rate}</h3>
+          <p><strong>ID Product:</strong> {product.product_id}</p>
+ 
+          {/* About Product */}
+          <div className="aboutProduct">
+            <h4>About Product</h4>
+            <p>{product.product_description}</p>
+          </div>
+ 
+          {/* Additional Information */}
+          <div className="additionalInfo">
+            <h4>Additional Information</h4>
+            <p><strong>Item Details:</strong> {product.item_details}</p>
+            <p><strong>How to Use:</strong> {product.how_to_use}</p>
+            <p><strong>Composition:</strong> {product.composision}</p>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 };
-
+ 
 export default ProductViewDetails;

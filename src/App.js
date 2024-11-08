@@ -9,6 +9,7 @@ import SearchBarLocation from './user/components/SearchBarLocation';
 import React, { useState } from 'react';
 import Dashboard from './admin/pages/Dashboard';
 import Login from './Auth/Login';
+import Signup from './Auth/Signup';
 
 const App = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -17,6 +18,7 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path='/Auth/Login' element={<Login/>} />
+        <Route path='/Auth/Signup' element={<Signup/>} />
         <Route path="/" element={<MainPage />} />
         <Route path="/user/components/SearchBarLocation" element={<SearchBarLocation />} />
         <Route path="/user/components/Card" element={<Card setCartItems={setCartItems} />} />
