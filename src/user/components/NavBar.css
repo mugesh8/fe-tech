@@ -42,3 +42,9 @@
     padding-left: 20px;
 }
 
+/* Media Query for Mobile Devices */
+@media (max-width: 480px){
+    .nav-1{
+        display: none;
+    }
+}

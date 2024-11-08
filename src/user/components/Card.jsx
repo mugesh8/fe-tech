@@ -37,7 +37,7 @@ const Card = () => {
           <span></span>
           <h4>Rs-{product.mrp_rate}</h4>
           <small className="brand">{product.brand_name}</small>
-          <button className="card" onClick={() => handleAddToCard(product)}>
+          <button className="cardBtn" onClick={() => handleAddToCard(product)}>
             Add to Cart
           </button>
         </div>

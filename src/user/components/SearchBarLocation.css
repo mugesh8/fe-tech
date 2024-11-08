@@ -62,3 +62,10 @@ a{
 .nav-container input::placeholder{
   margin-left: 20px;
 }
+
+/* Media Query for Mobile Devices */
+@media (max-width: 480px){
+  .nav-links{
+    display: none;
+  }
+}

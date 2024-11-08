@@ -31,3 +31,22 @@
     background-color: #808080;
     margin: 0 10px;
 }
+
+/* Media Query for Mobile Devices */
+@media (max-width: 480px){
+    .search-container{
+        width: 80%;
+        height: 30px;
+        margin-left: 10%;
+        margin-top: 25px;
+    }
+    .bi.bi-x-lg {
+        display: none;
+    }
+    .divider{
+        display: none;
+    }
+    .bi-mic-fill{
+        display: none;
+    }
+}

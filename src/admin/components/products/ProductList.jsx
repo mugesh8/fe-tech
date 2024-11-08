@@ -1,40 +1,45 @@
 import React, { useState, useEffect } from 'react';
+import { Pagination } from 'react-bootstrap';
 import '../products/ProductList.css';
 import { Box, Upload} from 'lucide-react';
+import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 import axios from 'axios';
 
 const ProductList = () => {
-    const products = [
-        { id: 'PA89', product: 'AC Spares', organization: 'Tools Mart', mrpRate: 2500, techniciansRate: 2500, distributorsRate: 2500 },
-        { id: 'PA89', product: 'AC Spares', organization: 'Tools Mart', mrpRate: 2500, techniciansRate: 2500, distributorsRate: 2500 },
-        { id: 'PA89', product: 'AC Spares', organization: 'Tools Mart', mrpRate: 2500, techniciansRate: 2500, distributorsRate: 2500 },
-        { id: 'PA89', product: 'AC Spares', organization: 'Tools Mart', mrpRate: 2500, techniciansRate: 2500, distributorsRate: 2500 },
-        { id: 'PA89', product: 'AC Spares', organization: 'Tools Mart', mrpRate: 2500, techniciansRate: 2500, distributorsRate: 2500 },
-      ];
-
-    //   useEffect(() => {
-    //     const fetchProducts = async () => {
-    //       try {
-    //         const response = await axios.get('http://localhost:5000/rim/getAllProducts');
-    //         setProducts(response.data.products);
-    //       } catch (error) {
-    //         console.error('Error fetching products:', error);
-    //       }
-    //     };
-    //     fetchProducts();
-    //   }, []);
+  const [products, setProducts] = useState([]);
+      useEffect(() => {
+        const fetchProducts = async () => {
+          try {
+            const response = await axios.get('http://localhost:5000/rim/products');
+            setProducts(response.data.products);
+          } catch (error) {
+            console.error('Error fetching products:', error);
+          }
+        };
+        fetchProducts();
+      }, []);
 
       const [currentPage, setCurrentPage] = useState(1);
-      const itemsPerPage = 10;
-      const totalPages = Math.ceil(products.length / itemsPerPage);
+  const itemsPerPage = 6; // Display 6 items per page
+
+  // Calculate the indices for slicing the array of products
+  const indexOfLastProduct = currentPage * itemsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - itemsPerPage;
+  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+
+  // Calculate the total number of pages
+  const totalPages = Math.ceil(products.length / itemsPerPage);
+
+  // Handle page change when user clicks a page number
+  const handlePageChange = (pageNumber) => {
+    if (pageNumber < 1) pageNumber = 1;
+    if (pageNumber > totalPages) pageNumber = totalPages;
+    setCurrentPage(pageNumber);
+  };
     
       const [isModalOpen, setIsModalOpen] = useState(false);
       const [currentProduct, setCurrentProduct] = useState(null);
       const [imageFiles, setImageFiles] = useState([]);
-    
-      const handlePageChange = (page) => {
-        setCurrentPage(page);
-      };
     
       const toggleModal = (product = null) => {
         setCurrentProduct(product);
@@ -92,6 +97,7 @@ const ProductList = () => {
        <table className="products-table">
             <thead>
               <tr>
+                <th>No</th>
                 <th>ID</th>
                 <th>Product</th>
                 <th>Organization Name</th>
@@ -101,26 +107,58 @@ const ProductList = () => {
               </tr>
             </thead>
             <tbody>
-              {products.map((product, index) => (
+              {currentProducts.map((product, index) => (
                 <tr key={index}>
-                  <td>{product.id}</td>
+                  <td>{index + 1}</td>
+                  <td>{product.product_id}</td>
                   <td>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                       <div className="product-icon">
                         <Box color="white" size={20} />
                       </div>
-                      {product.product}
+                      {product.name}
                     </div>
                   </td>
-                  <td>{product.organization}</td>
-                  <td>{product.mrpRate}</td>
-                  <td>{product.techniciansRate}</td>
-                  <td>{product.distributorsRate}</td>
+                  <td>{product.brand_name}</td>
+                  <td>{product.mrp_rate}</td>
+                  <td>{product.technicians_rate ? product.technicians_rate : '-'}</td>
+                  <td>{product.distributors_rate}</td>
                 </tr>
               ))}
             </tbody>
           </table>
+         
+      {/* Pagination UI */}
+      <div className="container d-flex mt-2" style={{flexDirection:'row',alignItems:'center', justifyContent:'space-between'}}>
+      <div className="results-count text-center mb-3">
+        Showing {currentProducts.length===0 ? '0' : '1'} to {currentProducts.length} of {products.length} entries
+      </div>
 
+      <Pagination className="justify-content-center" style={{gap:'10px'}}>
+        <Pagination.Prev
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+        ><MdChevronLeft/>
+          </Pagination.Prev>
+
+        {[...Array(totalPages)].map((_, index) => (
+          <Pagination.Item
+            key={index + 1}
+            active={currentPage === index + 1}
+            onClick={() => handlePageChange(index + 1)}
+          >
+            {index + 1}
+          </Pagination.Item>
+        ))}
+
+        <Pagination.Next
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+        ><MdChevronRight/>
+          </Pagination.Next>
+      </Pagination>
+      <div></div>
+      </div>
           {/* Modal Component */}
       {isModalOpen && (
         <div className="modal-overlay" onClick={toggleModal}>
@@ -156,6 +194,12 @@ const ProductList = () => {
               </div>
               <div>
                 <label>Brand Name</label>
+                <input type="text" 
+                value={currentProduct?.brand_name || ''} 
+                onChange={(e) => setCurrentProduct({ ...currentProduct, brand_name: e.target.value })} />
+              </div>
+              <div>
+                <label>Organization Name</label>
                 <input type="text" 
                 value={currentProduct?.brand_name || ''} 
                 onChange={(e) => setCurrentProduct({ ...currentProduct, brand_name: e.target.value })} />
