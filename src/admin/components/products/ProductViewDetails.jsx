@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { Package } from 'lucide-react';
 import '../products/ProductViewDetails.css';
 import defaultImage from '../../assets/compressor-img.png';
  
@@ -62,7 +63,7 @@ const ProductViewDetails = () => {
         {/* Product Stats */}
         <div className="productStatsSection">
           <div className="stockInfo">
-            <p><strong>Stock</strong></p>
+            <p><strong><Package /> Stock</strong></p>
             <p>{product.stocks} / Pack</p>
           </div>
           <div className="salesInfo">

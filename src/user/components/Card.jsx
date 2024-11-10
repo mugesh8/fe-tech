@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Card.css';
 import axios from 'axios';
-
+ 
 const Card = () => {
   const [cartItems, setCartItems] = useState([]);
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
-
+  const LoggedUser = JSON.parse(localStorage.getItem('userData'));
+ 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -19,15 +20,26 @@ const Card = () => {
     };
     fetchProducts();
   }, []);
-
-  const handleAddToCard = (product) => {
-    // Add product to cart
-    setCartItems([...cartItems, product]);
-
-    // Redirect the user to the new "Cart" component
-    navigate('/user/pages/Cart');
+ 
+  const handleAddToCard = async (product) => {
+    try {
+      // API call to add product to cart
+      const response = await axios.post('http://localhost:5000/rim/addtocart', {
+        productId: product.product_id,
+        userId: LoggedUser.user_id,
+        quantity: 1
+      });
+ 
+      // Update the cart state if needed (optional, based on response)
+      setCartItems([...cartItems, product]);
+ 
+      // Redirect the user to the "Cart" page
+      navigate('/user/pages/Cart');
+    } catch (error) {
+      console.error('Error adding product to cart:', error);
+    }
   };
-
+ 
   return (
     <div className="card-container">
       {products.map((product) => (
@@ -45,5 +57,5 @@ const Card = () => {
     </div>
   );
 };
-
+ 
 export default Card;

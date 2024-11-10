@@ -1,36 +1,83 @@
-import React from 'react'
-import '../Auth/Signup.css'
-import NavBar from '../user/components/NavBar'
-import logo from '../user/assets/RiM-Logo.png'
+import React, { useState } from 'react';
+import axios from 'axios';
+import '../Auth/Signup.css';
+import NavBar from '../user/components/NavBar';
+import logo from '../user/assets/RiM-Logo.png';
 
 const Signup = () => {
+  const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    password: '',
+  });
+
+  const [message, setMessage] = useState('');
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:5000/rim/registerUser', formData);
+      
+      if (response.status === 200) {
+        setMessage('Registration successful!');
+       
+      } else {
+        setMessage(response.data.message || 'Registration failed.');
+      }
+      setFormData(
+        {
+          username: '',
+          email: '',
+          password: '',
+        }
+      )
+    } catch (error) {
+      console.error('Error:', error);
+      setMessage(error.response?.data?.message || 'An error occurred. Please try again.');
+    }
+  };
+
   return (
     <>
-      <NavBar/>
       <div className="login-container">
-      <div className="login-form">
-        <h3>Welcome</h3>
-        <div className="form-group">
-          <label>User Name</label>
-          <input type="text" />
+        <div className="login-form">
+          <h3>Welcome</h3>
+          {message && <p>{message}</p>}
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label>User Name</label>
+              <input type="text" name="username" value={formData.username} onChange={handleChange} required />
+            </div>
+            <div className="form-group">
+              <label>Email</label>
+              <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+            </div>
+            <div className="form-group">
+              <label>Password</label>
+              <input type="password" name="password" value={formData.password} onChange={handleChange} required />
+            </div>
+            <button type="submit" className="login-button">Signup</button>
+          </form>
+          <p className="otp-login">
+          {/* Sign - in using <a href="#">OTP</a> */}
+           <a href="/Auth/Login">Sign-in</a>
+
+        </p>
         </div>
-        <div className="form-group">
-          <label>Email</label>
-          <input type="email" />
+        <div className="login-banner">
+          <img src={logo} alt="Logo" className="rim-logo" />
         </div>
-        <div className="form-group">
-          <label>Password</label>
-          <input type="password" />
-        </div>
-        <button className="login-button">Sign in</button>
       </div>
-      <div className="login-banner">
-        <img src={logo} alt="Logo" className="rim-logo" />
-      </div>
-    </div>
-  
     </>
-  )
+  );
 }
 
-export default Signup
+export default Signup;

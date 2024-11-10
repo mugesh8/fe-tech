@@ -7,7 +7,7 @@
 
 .card{
     width: 300px;
-    height: 530px !important;
+    height: auto !important;
     border-radius: 10px;
     margin: 20px 30px;
 }
@@ -63,6 +63,7 @@ small{
     align-items: center;
     margin-left: 11.5% !important;
     margin-top: 20px;
+    margin-bottom: 30px;
 }
 
 /* Media Query for Mobile Devices */

@@ -15,6 +15,9 @@ const AdminNavbar = () => {
             case '/Dashboard':
                 setTab('Enterprise Ai hub');
                 break;
+            case '/Dashboard/products':
+                setTab('Products');
+                break;
             default:
                 setTab('Product');
                 break;

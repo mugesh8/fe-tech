@@ -1,5 +1,5 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import AdminNavbar from '../components/AdminNavbar';
 import AdminSidebar from '../components/AdminSidebar';
 import ProductList from '../components/products/ProductList';
@@ -8,8 +8,21 @@ import ProductViewDetails from '../components/products/ProductViewDetails';
 import Forum from '../components/products/Forum';
 import Technicians from '../components/products/Technicians';
 import '../pages/Dashboard.css';
- 
+
 export default function Dashboard() {
+    const navigate = useNavigate();
+    const LoggedUser = JSON.parse(localStorage.getItem('userData'));
+
+    useEffect(() => {
+        if (!LoggedUser || LoggedUser.isAdmin !== 1) {
+            navigate('/Auth/login'); // Redirect if not logged in or not an admin
+        }
+    }, [LoggedUser, navigate]);
+
+    if (!LoggedUser || LoggedUser.isAdmin !== 1) {
+        return null; // Prevent rendering if navigating away
+    }
+
     return (
         <div className="container-fluid d-flex p-0">
             <div style={{ width: '20%' }}>
@@ -30,4 +43,3 @@ export default function Dashboard() {
         </div>
     );
 }
- 

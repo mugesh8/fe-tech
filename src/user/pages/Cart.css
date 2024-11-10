@@ -66,11 +66,6 @@
     font-size: 12px;
   }
   
-  .quantity-control {
-    gap: 8px;
-    justify-content: space-around;
-  }
-  
   .cart-total{
     font-size: 20px;
     font-weight: bold;
@@ -79,15 +74,22 @@
     margin-left: 10%;
   }
   
-  .quantity-control button {
-    padding: 4px 8px;
+  .quantity-controls button {
+
     border: 1px solid #ddd;
     background-color: #A2A2A2;
     cursor: pointer;
-    font-size: 14px;
-    width: 30px; /* Adjust width for alignment */
-    height: 30px;
+    font-size: 12px !important;
+    width: 40px; /* Adjust width for alignment */
+    height: 40px;
     margin-left: 0% !important;
+    text-align: center !important;
+  }
+
+  .btnControl{
+    display: flex;
+    align-items: center;
+    gap: 5px;
   }
   
   .total-price {
