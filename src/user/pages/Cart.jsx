@@ -3,7 +3,7 @@ import "../pages/Cart.css";
 import NavBar from "../components/NavBar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Propic from "../assets/profile-pic.png";
+import baseurl from "../../apiService/apiService";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ const Cart = () => {
       const fetchCartData = async () => {
         try {
           const response = await axios.get(
-            `http://localhost:5000/rim/user/${userId}`
+            baseurl+`/rim/user/${userId}`
           );
           const items = response.data.cartItems.map((item) => ({
             ...item,
@@ -58,7 +58,7 @@ const Cart = () => {
   const handlecheckout = async () => {
     try {
       // Send POST request with user_id to place the order
-      await axios.post("http://localhost:5000/rim/placeOrder", { userId: userId });
+      await axios.post(baseurl+"/rim/placeOrder", { userId: userId });
 
       // Navigate to the checkout page upon successful order placement
       navigate("/user/checkout");
@@ -89,7 +89,7 @@ const Cart = () => {
                 <tr key={item.product_id}>
                   <td className="product-details">
                     <img
-                      src={`http://localhost:5000/${item.first_image}`}
+                      src={baseurl+`/${item.first_image}`}
                       alt={item.name}
                       className="product-images"
                     />

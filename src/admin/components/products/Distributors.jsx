@@ -167,7 +167,7 @@ const Distributors = () => {
         {/* Modal Component */}
 {isModalOpen && (
   <div className="modal-overlay" onClick={toggleModal}>
-    <div className="modal-content distributor-modal" onClick={(e) => e.stopPropagation()}>
+    <div className="modal-content w-75 distributor-modal" onClick={(e) => e.stopPropagation()} style={{backgroundColor:'#fff'}}>
       <h2>Distributors Registration</h2>
       <form className="distributor-registration-form">
         <div className="form-row">
@@ -192,16 +192,17 @@ const Distributors = () => {
             <input type="text" placeholder="Enter credit limit" />
           </div>
         </div>
-        <div className="form-row">
+        <div className="form-row d-flex flex-column">
           <p>Who can we contact for this conversation?</p>
-          <div className="form-group">
+          <div className='d-flex flex-row gap-3'>
+            <div className="form-group">
             <label>Name</label>
             <input type="text" placeholder="Enter name" />
           </div>
           <div className="form-group">
             <label>Phone Number</label>
             <input type="text" placeholder="Enter phone number" />
-          </div>
+          </div></div>
         </div>
         <div className="form-row">
           <div className="form-group full-width">

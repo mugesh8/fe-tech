@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Card.css';
 import axios from 'axios';
- 
+import baseurl from '../../apiService/apiService';
 const Card = () => {
   const [cartItems, setCartItems] = useState([]);
   const [products, setProducts] = useState([]);
@@ -12,7 +12,7 @@ const Card = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/rim/getAllProducts');
+        const response = await axios.get(baseurl+'/rim/getAllProducts');
         setProducts(response.data.products);
       } catch (error) {
         console.error('Error fetching products:', error);
@@ -24,7 +24,7 @@ const Card = () => {
   const handleAddToCard = async (product) => {
     try {
       // API call to add product to cart
-      const response = await axios.post('http://localhost:5000/rim/addtocart', {
+      const response = await axios.post(baseurl+'/rim/addtocart', {
         productId: product.product_id,
         userId: LoggedUser.user_id,
         quantity: 1
@@ -44,7 +44,7 @@ const Card = () => {
     <div className="card-container">
       {products.map((product) => (
         <div className="card" key={product.product_id}>
-          <img src={`http://localhost:5000/${product.first_image}`} alt={product.name} />
+          <img src={baseurl+`/${product.first_image}`} alt={product.name} />
           <p>{product.name}</p>
           <span></span>
           <h4>Rs-{product.mrp_rate}</h4>
