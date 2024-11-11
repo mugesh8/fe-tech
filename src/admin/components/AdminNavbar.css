@@ -1,3 +1,4 @@
+
 .navbar-collapse{
     justify-content: flex-end !important;
 }
@@ -24,3 +25,4 @@ a.navbar-brand{
 .searchInputs input::placeholder{
     padding: 20px !important;
 }
+

@@ -13,7 +13,7 @@ import Technician from '../assets/AdminDashboardIcons/Technicians.png'
 import Distributor from '../assets/AdminDashboardIcons/Distributors.png'
 import Transport from '../assets/AdminDashboardIcons/Transport.png'
 
-const AdminSidebar = () => {
+const AdminSidebar = ({handleBackClick}) => {
   const navigate = useNavigate();  // Add this hook
 
   // Add this function to handle navigation
@@ -22,20 +22,23 @@ const AdminSidebar = () => {
     navigate(path);
   };
 
+
   return (
     <>
      <div className='sideNavContainer'>
       <div className="Dashboardlogo">
         <img src={Logo} alt="logo"/>
       </div>
-     </div>
      <div className='sideNavLinks'>
+     <div className="back-link" onClick={handleBackClick}>
+            <i className="bi bi-arrow-left-short" style={{ cursor: 'pointer' }}></i> Back
+          </div>
         <div className='general'>
            <small>General</small>
         </div>
         <div className='generalLinks'>
             <ul>
-                <li><a href=""><img src={Enterprise} alt="" style={{color: 'black'}}/> Enterprise AI Hub</a></li>
+                <li><a href="/Dashboard" onClick={(e) => handleNavigation ('/Dashboard',e)}><img src={Enterprise} alt="" style={{color: 'black'}}/> Enterprise AI Hub</a></li>
                 <li>
                   <a href='/Dashboard/forum' onClick={(e) => handleNavigation('/Dashboard/forum', e)}>
                     <img src={Forum} alt="" /> Forum
@@ -75,10 +78,16 @@ const AdminSidebar = () => {
                     <img src={Technician} alt="" /> Technicians
                   </a>
                 </li>
-                <li><a href=""><img src={Distributor} alt="" /> Distributors</a></li>
+                <li>
+                    <a href="'/Dashboard/Distributors" onClick={(e) => handleNavigation('/Dashboard/Distributors',e)}><img src={Distributor} alt="" />
+                      Distributors</a>
+                  </li>
                 <li><a href=""><img src={Shipment} alt="" /> Shipments</a></li>
                 <li><a href=""><img src={Transport} alt="" /> Transport</a></li>
-                <li><a href=""><img src={Order} alt="" /> Order Summary</a></li>
+                <li>
+                    <a href="/Dashboard/OrderSummary" onClick={(e) => handleNavigation('/Dashboard/OrderSummary',e)}><img src={Order} alt="" />
+                      Order Summary</a>
+                </li>
             </ul>
         </div>
         <div>
@@ -91,6 +100,7 @@ const AdminSidebar = () => {
                 <li><a href=""><LogOut /> Logout</a></li>
             </ul>
         </div>
+     </div>
      </div>
     </>
   )

@@ -25,11 +25,6 @@ const MainPage = () => {
 
   return (
     <>
-      <div className='Mob-nav'>
-        <div><i className="bi bi-list"></i></div>
-        <div>Mobile Site Product</div>
-        <div><img src={Propic} alt="Profile" /></div>
-      </div>
       <NavBar />
       <NavbarSearch />
       <SearchBarLocation />

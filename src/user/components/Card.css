@@ -77,12 +77,13 @@ small{
     .card{
         margin: 20px 0px !important;
         width: 40%;
-        height: 40% !important;  
-        padding-bottom: 15px !important; 
+        height: auto !important;;  
+        padding: 0%; 
     }
     .card-container img{
         margin-top: 20px !important;
         width: 80% !important;
+        object-fit: cover;
         height: 30%!important;
         margin-left: 10% !important;
     }
@@ -124,6 +125,7 @@ small{
         align-items: center;
         margin-left: 10% !important;
         margin-top: 20px !important;
+        margin-bottom: 10px;
     }
 }
 

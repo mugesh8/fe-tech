@@ -27,3 +27,31 @@
 .dropdown a{
     background-color: white !important;
 }
+
+ /* Media Query for Mobile Devices */
+ @media (max-width: 480px){
+    .Dashboardlogo{
+        display: none;
+    }
+
+    .sideNavContainer{
+        position: absolute !important;
+        top: 20px;
+    }
+
+    .generalLinks ul li{
+        line-height: 45px;
+    }
+
+    .supportLinks ul li{
+        line-height: 45px;
+    }
+
+    .generalLinks ul li a{
+        font-size: 12px !important;
+    }
+
+    .supportLinks ul li a{
+        font-size: 12px !important;
+    }
+ }
