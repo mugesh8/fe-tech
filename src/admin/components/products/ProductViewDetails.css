@@ -19,10 +19,11 @@
   }
   
   .thumbnailGallery {
-    width: 135px;
-    height: 135px;
+    width: 130px;
+    height: 130px;
     display: flex;
-    gap: 47px;
+    margin-left: 15px;
+    gap: 40px;
     border-radius: 10px;
   }
   
@@ -66,10 +67,16 @@
     padding: 15px;
     border: 1px solid #ddd;
     border-radius: 8px;
-    width: 100px;
+    width: 230px;
+    height: 124px;
+    font-size: 12px;
   }
   
   .stockInfo p, .salesInfo p {
-    margin: 5px 0;
+    margin: 40px 0;
+    font-size: 20px;
+    font-weight: 800;
   }
+
+ 
   

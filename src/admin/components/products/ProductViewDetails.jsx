@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { Package } from 'lucide-react';
+import { Package, ShoppingCart } from 'lucide-react';
 import '../products/ProductViewDetails.css';
 import defaultImage from '../../assets/compressor-img.png';
+import baseurl from '../../../apiService/apiService';
  
 const ProductViewDetails = () => {
   const { id } = useParams();
@@ -13,7 +14,7 @@ const ProductViewDetails = () => {
   useEffect(() => {
     const fetchProductDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/rim/productDetail/${id}`);
+        const response = await axios.get(baseurl+`/rim/productDetail/${id}`);
         const fetchedProduct = response.data.product;
  
         // Split the images string into an array if it exists
@@ -40,7 +41,7 @@ const ProductViewDetails = () => {
       <section className="section-1">
         <div className="productImageSection">
           {/* Main Image */}
-          <img src={`http://localhost:5000/${mainImage}`} alt="Main Product" className="mainImage" />
+          <img src={baseurl+`/${mainImage}`} alt="Main Product" className="mainImage" />
  
           {/* Thumbnail Gallery */}
           <div className="thumbnailGallery">
@@ -48,7 +49,7 @@ const ProductViewDetails = () => {
               product.images.map((image, index) => (
                 <img
                   key={index}
-                  src={`http://localhost:5000/${image}`}
+                  src={baseurl+`/${image}`}
                   alt={`Thumbnail ${index + 1}`}
                   className="thumbnail"
                   onClick={() => setMainImage(image)}
@@ -63,11 +64,11 @@ const ProductViewDetails = () => {
         {/* Product Stats */}
         <div className="productStatsSection">
           <div className="stockInfo">
-            <p><strong><Package /> Stock</strong></p>
+            <strong><Package style={{border: '1.5px solid #091975', color: '#091975'}}/> Stock</strong>
             <p>{product.stocks} / Pack</p>
           </div>
           <div className="salesInfo">
-            <p><strong>Sales</strong></p>
+            <strong><ShoppingCart style={{border: '1.5px solid #F4A754', color: 'F4A754'}} /> Sales</strong>
             <p>{product.sales} / Pack</p>
           </div>
         </div>

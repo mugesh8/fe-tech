@@ -86,7 +86,7 @@ td.status{
   }
   
   .modal-content {
-    background: white;
+    background: white !important;
     height: 90vh;
     padding: 2rem;
     border-radius: 8px;

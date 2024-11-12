@@ -4,13 +4,14 @@ import '../products/ProductList.css';
 import { Box, Upload} from 'lucide-react';
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 import axios from 'axios';
+import baseurl from '../../../apiService/apiService';
  
 const ProductList = () => {
   const [products, setProducts] = useState([]);
       useEffect(() => {
         const fetchProducts = async () => {
           try {
-            const response = await axios.get('http://localhost:5000/rim/products');
+            const response = await axios.get(baseurl+'/rim/products');
             setProducts(response.data.products);
           } catch (error) {
             console.error('Error fetching products:', error);
@@ -58,7 +59,7 @@ const ProductList = () => {
     });
  
     try{
-        const response = await axios.post('http://localhost:5000/rim/addProduct', formData, {
+        const response = await axios.post(baseurl+'/rim/addProduct', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             },

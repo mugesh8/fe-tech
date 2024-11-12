@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Share2 } from 'lucide-react';
 import '../products/ProductView.css';
 import compressor from '../../assets/compressor-img.png';
+import baseurl from '../../../apiService/apiService';
  
 const ProductView = () => {
   const [products, setProducts] = useState([]); // State to store fetched products
@@ -13,7 +14,7 @@ const ProductView = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/rim/getAllProducts');
+        const response = await axios.get(baseurl+'/rim/getAllProducts');
         setProducts(response.data.products); // Assuming response data is an array of products
       } catch (error) {
         console.error('Error fetching products:', error);
@@ -33,7 +34,7 @@ const ProductView = () => {
     <div className="productViewContainer">
       {products.map((product) => (
         <div key={product.id} className="productViewCard">
-          <img src={`http://localhost:5000/${product.first_image}`|| compressor} alt={product.name} />
+          <img src={baseurl+`/${product.first_image}`|| compressor} alt={product.name} />
           <p>{product.name}</p>
           <div className="line"><span></span></div>
           <div className="productMrp"><h4>Rs-{product.mrp_rate}</h4></div>

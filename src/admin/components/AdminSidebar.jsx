@@ -38,7 +38,7 @@ const AdminSidebar = ({handleBackClick}) => {
         </div>
         <div className='generalLinks'>
             <ul>
-                <li><a href="/Dashboard" onClick={(e) => handleNavigation ('/Dashboard',e)}><img src={Enterprise} alt="" style={{color: 'black'}}/> Enterprise AI Hub</a></li>
+                <li><a href="/Dashboard" onClick={(e) => handleNavigation ('/Dashboard',e)}><img src={Enterprise} alt=""/> Enterprise AI Hub</a></li>
                 <li>
                   <a href='/Dashboard/forum' onClick={(e) => handleNavigation('/Dashboard/forum', e)}>
                     <img src={Forum} alt="" /> Forum
