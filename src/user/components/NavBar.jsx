@@ -48,7 +48,7 @@ const NavBar = () => {
        <img className='userLogo' src={userLogo} alt="" onClick={toggleDropdown} />
        {isDropdownOpen && (
          <div className='dropdown-menu'>
-           <a href="/Auth/Login" onClick={handleLoginClick}>Profile</a>
+           <a href="/user/pages/ProfileInfo" onClick={handleLoginClick}>Profile</a>
            <a href="/user/pages/OrderHistory">Orders</a>
            <a href="#">Logout</a>
          </div>

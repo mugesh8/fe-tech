@@ -1,0 +1,281 @@
+.search{
+    display: flex;
+    justify-content: space-around;
+}
+
+.searchInput{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 60%;
+    height: 60px;
+    border-radius: 20px;
+    margin-top: 70px;
+    border: 1px solid #808080;
+    padding: 0 15px;
+}
+
+.search-container input::placeholder{
+    color: #808080;
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 38px;
+    padding-left: 20px;
+}
+
+  .search-input {
+    border: none;
+    outline: none;
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 25px;
+  }
+
+  .search-icons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: 10px;
+  }
+
+  .search-icons i {
+    cursor: pointer;
+    color: gray;
+  }
+
+  .divider {
+    height: 50px;
+    width: 1px;
+    background-color: #ccc;
+    margin: 0 10px;
+  }
+
+
+.feed-btn button{
+    margin-top: 70px;
+    margin-left: 115%;
+}
+
+.product-card{
+  margin-bottom: 50px;
+}
+
+.product-card-container {
+  width: 88%;
+  height: 380px;
+  border: 1px solid gray;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 50px;
+  display: flex;
+  margin-left: 6%;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+}
+
+.product-image-container {
+  text-align: center;
+}
+
+.product-image {
+  height: 200px;
+  margin-left: -100px;
+}
+
+.product-details-container {
+  padding-left: 20px;
+}
+
+.details-row {
+  display: flex ;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.label {
+  font-weight: bold;
+  color: #333;
+  font-size: 18px !important;
+}
+
+.value {
+  color: #555;
+  margin-left: -50px;
+  font-size: 18px ;
+}
+
+.close-date {
+  font-size: 0.9rem;
+  color: #888;
+}
+
+.take-btn {
+  position: absolute;
+  background-color: #ff5722;
+  color: #fff;
+  font-weight: bold;
+  font-size: 20px;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 10px;
+  margin-left: -70px !important;
+  width: 170px;
+  height: 70px;
+}
+
+.take-btn:hover {
+  background-color: #e64a19;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 800px !important;
+    position: relative;
+  }
+  
+  /* Close Button */
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+  }
+
+  .submitReq{
+    width: 40% !important;
+    height: 40px;
+    margin-top: 20px;
+    margin-left: 60% !important;
+    font-size: 16px !important;
+    background: #F24E1E !important;
+    color: white !important;
+  }
+  
+
+
+
+/* Media Query for Mobile Devices */
+@media (max-width: 480px){
+  .Mob-nav{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 24px;
+    border: none;
+    padding: 0 20px;
+   }
+
+  .search{
+    display: flex !important;
+    flex-direction: column;
+   }
+
+   .searchInput{
+    display: block !important;
+    width: 80%;
+    height: 40px;
+    margin-left: 10%;
+    margin-top: 20px;
+    border: 1px solid #808080;
+    padding: 0 15px;
+   }
+
+   .feed-btn button{
+    display: block;
+    font-size: 16px !important;
+    width: 40%;
+    height: 50px !important;
+   }
+
+   .feed-btn{
+    margin-top: -40px;
+    margin-left: 26%;
+   }
+
+   .product-card{
+    display: flex;
+    flex-wrap: wrap;
+   }
+
+   .product-card-container {
+    width: 40%;
+    height: 320px;
+    border: 1px solid gray;
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 50px;
+    display: flex;
+    margin-left: 6%;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+  }
+  
+  .product-image {
+    max-width: 60px;
+    height: 60px;
+    margin-left: -10% !important;
+    margin-top: -60px;
+  }
+
+  .details-row {
+    display: flex ;
+    justify-content: space-between;
+  }
+  
+  .label {
+    font-size: 8px !important;
+    font-weight: bold;
+    color: #333;
+    margin-top: -10px;
+  }
+  
+  .value {
+    font-size: 8px;
+    color: #555;
+    margin-top: -10px;
+  }
+  
+  .close-date {
+    font-size: 8px;
+    color: #888;
+    margin-top: -10px;
+  }
+  
+  .take-btn {
+    position: absolute;
+    background-color: #ff5722;
+    color: #fff;
+    font-weight: bold;
+    font-size: 10px;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 10px;
+    margin-left: -70px !important;
+    margin-top: 20px;
+    width: 70px;
+    height: 30px;
+  }
+
+  }

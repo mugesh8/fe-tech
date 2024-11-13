@@ -1,11 +1,14 @@
 import React, { Fragment } from 'react'
 import '../components/SearchBarLocation.css'
+import FeedsViews from '../pages/FeedViews'
+import { useNavigate } from 'react-router-dom'
 
 const SearchBarLocation = () => {
+  const navigate = useNavigate();
   return (
     <>
      <div className='nav-links'>
-              <button> <i class="bi bi-box-seam"></i>  Forum</button>
+              <button onClick={()=>navigate('/user/Pages/FeedViews')}> <i class="bi bi-box-seam"></i>  Forum</button>
                 <div className='nav-container'>
                   <ul>
                     <li> <input className='loc-search' type="text" placeholder='Enter your Location here' /></li>
