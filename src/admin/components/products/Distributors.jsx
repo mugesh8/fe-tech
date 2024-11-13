@@ -5,42 +5,12 @@ import { Box, Upload, Eye, PencilLine, Trash2 } from "lucide-react";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import axios from "axios";
 import baseurl from "../../../apiService/apiService";
+import { useNavigate } from "react-router-dom";
 
 const Distributors = () => {
+  const navigate = useNavigate(); 
   const [distributors, setDistributors] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6; // Display 6 items per page
-
-  useEffect(() => {
-    fetchDistributors();
-  }, []);
-
-  // Fetch distributors from API
-  const fetchDistributors = async () => {
-    try {
-      const response = await axios.get(baseurl+"/rim/getAllDistributors");
-      setDistributors(response.data.distributors || []); // Set to an empty array if undefined
-    } catch (error) {
-      console.error("Error fetching distributors:", error);
-      setDistributors([]); // Set to an empty array in case of an error
-    }
-  };
-
-  // Calculate indices for pagination
-  const indexOfLastDistributor = currentPage * itemsPerPage;
-  const indexOfFirstDistributor = indexOfLastDistributor - itemsPerPage;
-  const currentDistributors = (distributors || []).slice(indexOfFirstDistributor,
-     indexOfLastDistributor);
-
-  const totalPages = Math.ceil(distributors.length / itemsPerPage);
-
-  // Handle page change
-  const handlePageChange = (pageNumber) => {
-    if (pageNumber < 1) pageNumber = 1;
-    if (pageNumber > totalPages) pageNumber = totalPages;
-    setCurrentPage(pageNumber);
-  };
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentDistributor, setCurrentDistributor] = useState({
     companyname: "",
@@ -52,54 +22,107 @@ const Distributors = () => {
     emailid: "",
   });
   const [imageFiles, setImageFiles] = useState([]);
+  const itemsPerPage = 6;
 
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
+  useEffect(() => {
+    fetchDistributors();
+  }, []);
+
+  // Fetch distributors from API
+  const fetchDistributors = async () => {
+    try {
+      const response = await axios.get(`${baseurl}/rim/getAllDistributors`);
+      setDistributors(response.data.distributors || []);
+    } catch (error) {
+      console.error("Error fetching distributors:", error);
+      setDistributors([]);
+    }
   };
 
-  // Handle form submission to add a new distributor
+  // Handle form submission for both add and update distributor
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     Object.entries(currentDistributor).forEach(([key, value]) => {
       formData.append(key, value);
     });
-
     Array.from(imageFiles).forEach((file) => {
       formData.append("image", file);
     });
 
     try {
-      const response = await axios.post(
-        baseurl + "/rim/addDistributor",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      alert(response.data.message);
-      fetchDistributors(); // Refresh distributors list after adding
-      setCurrentDistributor({
-        companyname: "",
-        location: "",
-        gstnumber: "",
-        creditlimit: "",
-        contact_person_name: "",
-        phoneno: "",
-        emailid: "",
+      const url = currentDistributor.distributor_id
+        ? `${baseurl}/rim/updateDistributorById/${currentDistributor.distributor_id}`
+        : `${baseurl}/rim/addDistributor`;
+      
+      const response = await axios({
+        method: currentDistributor.distributor_id ? "put" : "post",
+        url,
+        data: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
-      setImageFiles([]);
+      alert(response.data.message);
+      fetchDistributors();
+      resetForm();
     } catch (error) {
-      console.log(error);
+      console.error("Error submitting form:", error);
     }
     toggleModal();
   };
 
-  const handleImageChange = (e) => {
-    setImageFiles(e.target.files);
+  const resetForm = () => {
+    setCurrentDistributor({
+      companyname: "",
+      location: "",
+      gstnumber: "",
+      creditlimit: "",
+      contact_person_name: "",
+      phoneno: "",
+      emailid: "",
+    });
+    setImageFiles([]);
   };
+
+  // Handle view details navigation
+  const handleViewDetails = (distributor) => {
+    navigate(`/Dashboard/Distributors/DistributorsViewDetails/${distributor.distributor_id}`);
+  };
+
+  // Handle edit distributor
+  const handleEditDistributor = (distributor) => {
+    setCurrentDistributor(distributor);
+    toggleModal();
+  };
+
+  // Handle delete distributor
+  const handleDeleteDistributor = async (distributor) => {
+    const confirmed = window.confirm("Are you sure you want to delete this item?");
+    if (confirmed) {
+      try {
+        await axios.delete(`${baseurl}/rim/deleteDistributorById/${distributor.distributor_id}`);
+        alert("Distributor deleted successfully");
+        fetchDistributors();
+      } catch (error) {
+        console.error("Error deleting distributor:", error);
+      }
+    }
+  };
+
+  // Pagination indices and page change
+  const indexOfLastDistributor = currentPage * itemsPerPage;
+  const indexOfFirstDistributor = indexOfLastDistributor - itemsPerPage;
+  const currentDistributors = (distributors || []).slice(indexOfFirstDistributor, indexOfLastDistributor);
+  const totalPages = Math.ceil(distributors.length / itemsPerPage);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber < 1 ? 1 : pageNumber > totalPages ? totalPages : pageNumber);
+  };
+
+  const toggleModal = () => setIsModalOpen(!isModalOpen);
+
+  const handleImageChange = (e) => setImageFiles(e.target.files);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -157,16 +180,12 @@ const Distributors = () => {
             <tr key={index}>
               <td>{index + 1}</td>
               <td>{distributor.companyname}</td>
-              <td>
-                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                  {distributor.contact_person_name}
-                </div>
-              </td>
+              <td>{distributor.contact_person_name}</td>
               <td>{distributor.phoneno || "-"}</td>
               <td className="status">
-                <Eye style={{ color: "#091975", fontSize: "25px", cursor: "pointer"}} />
-                <PencilLine style={{ color: "#699BF7", cursor: 'pointer' }} />
-                <Trash2 style={{ color: "#F24E1E", cursor: 'pointer' }} />
+                <Eye style={{ color: "#091975", cursor: "pointer" }} onClick={() => handleViewDetails(distributor)} />
+                <PencilLine style={{ color: "#699BF7", cursor: 'pointer' }} onClick={() => handleEditDistributor(distributor)} />
+                <Trash2 style={{ color: "#F24E1E", cursor: 'pointer' }} onClick={() => handleDeleteDistributor(distributor)} />
               </td>
             </tr>
           ))}
@@ -174,22 +193,19 @@ const Distributors = () => {
       </table>
 
       {/* Pagination UI */}
-      <div className="container d-flex mt-2" style={{ justifyContent: "space-between" }}>
+      <div className="container d-flex mt-2 justify-content-between">
         <div className="results-count text-center mb-3">
           Showing {currentDistributors.length === 0 ? "0" : "1"} to {currentDistributors.length} of {distributors.length} entries
         </div>
-
         <Pagination className="justify-content-center" style={{ gap: "10px" }}>
           <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
             <MdChevronLeft />
           </Pagination.Prev>
-
           {[...Array(totalPages)].map((_, index) => (
             <Pagination.Item key={index + 1} active={currentPage === index + 1} onClick={() => handlePageChange(index + 1)}>
               {index + 1}
             </Pagination.Item>
           ))}
-
           <Pagination.Next onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>
             <MdChevronRight />
           </Pagination.Next>
@@ -199,8 +215,8 @@ const Distributors = () => {
       {/* Modal Component */}
       {isModalOpen && (
         <div className="modal-overlay" onClick={toggleModal}>
-          <div className="modal-content w-75 distributor-modal" onClick={(e) => e.stopPropagation()}>
-            <h2>Distributor Registration</h2>
+          <div className="modal-content distributor-modal" onClick={(e) => e.stopPropagation()}>
+            <h2>{currentDistributor?.distributor_id ? "Edit Distributor" : "Distributor Registration"}</h2>
             <form onSubmit={handleSubmit} className="distributor-registration-form">
               <div className="form-row">
                 <div className="form-group">
@@ -260,6 +276,7 @@ const Distributors = () => {
               </div>
               <button type="submit" className="submit-button">Submit</button>
             </form>
+
           </div>
         </div>
       )}

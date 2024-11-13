@@ -27,7 +27,7 @@ const ProductView = () => {
   // Navigate to product details
   const handleProductViewDetails = (product) => {
    
-    navigate(`/Dashboard/productViewDetails/${product.product_id}`);
+    navigate(`/Dashboard/products/productViewDetails/${product.product_id}`);
   };
  
   return (

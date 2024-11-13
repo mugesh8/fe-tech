@@ -43,6 +43,12 @@ const AdminNavbar = () => {
 
   useEffect(() => {
     // Update the `tab` based on the current pathname
+    if (location.pathname.startsWith("/Dashboard/products")) {
+      setTab("Products");
+    }
+    else if(location.pathname.startsWith("/Dashboard/Distributors")){
+      setTab("Distributors");
+    } else{
     switch (location.pathname) {
       case "/Dashboard":
         setTab("Enterprise Ai hub");
@@ -60,9 +66,10 @@ const AdminNavbar = () => {
         setTab("OrderSummary");
         break;
       default:
-        setTab("Product");
+        setTab("Nothing");
         break;
     }
+  }
   }, [location.pathname]); // Only re-run the effect if the pathname changes
 
   return (

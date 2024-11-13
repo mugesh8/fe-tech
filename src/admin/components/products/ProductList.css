@@ -12,7 +12,8 @@
     border-radius: 10px;
     margin-top: 0%;
     border: 1px solid #808080;
-    padding: 0 15px; /* Optional for extra spacing */
+    padding: 0 15px;
+    position: relative;
 }
 
 .searchInput input::placeholder{
@@ -188,20 +189,21 @@
 
   /* Media Query for Mobile Devices */
 @media (max-width: 480px){
-  .search-container{
-      width: 80%;
-      height: 30px;
-      margin-left: 10%;
-      margin-top: 25px;
+  .modal-overlay{
+    overflow: scroll;
   }
-  .bi.bi-x-lg {
-      display: none;
+
+  .productSearchBox{
+    
   }
-  .divider{
-      display: none;
-  }
-  .bi-mic-fill{
-      display: none;
-  }
+
+  #addProductBtn {
+    width: 100% !important;
+    height: 100% !important;
+    font-size: 10px !important;
+    background: #F24E1E;
+}
+
+  
 }
   

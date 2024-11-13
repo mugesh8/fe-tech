@@ -21,7 +21,6 @@ const Cart = () => {
           );
           const items = response.data.cartItems.map((item) => ({
             ...item,
-            quantity: 1, // Initialize quantity for each item
           }));
           setCartItems(items);
           calculateTotal(items);
@@ -31,7 +30,7 @@ const Cart = () => {
       };
       fetchCartData();
     }
-  }, [userId]);
+  }, []);
 
   const calculateTotal = (items) => {
     const total = items.reduce(
@@ -41,20 +40,31 @@ const Cart = () => {
     setTotalAmount(total);
   };
 
-  const handleQuantityChange = (productId, increment) => {
-    const updatedItems = cartItems.map((item) => {
-      if (item.product_id === productId) {
-        const newQuantity = increment
-          ? item.quantity + 1
-          : Math.max(item.quantity - 1, 1);
-        return { ...item, quantity: newQuantity };
-      }
-      return item;
-    });
+  const handleQuantityChange = async (productId, increment) => {
+    // Create a new array for updated items with updated quantities and send PUT requests
+    const updatedItems = await Promise.all(
+      cartItems.map(async (item) => {
+        if (item.product_id === productId) {
+          const newQuantity = increment
+            ? item.quantity + 1
+            : Math.max(item.quantity - 1, 1);
+  
+          try {
+            await axios.put(`${baseurl}/rim/update/${item.cart_id}`, { quantity: newQuantity });
+          } catch (error) {
+            alert(`Error updating quantity for ${item.product_id}: ${error.message}`);
+          }
+  
+          return { ...item, quantity: newQuantity };
+        }
+        return item;
+      })
+    );
+  
     setCartItems(updatedItems);
     calculateTotal(updatedItems);
   };
-
+  
   const handlecheckout = async () => {
     try {
       // Send POST request with user_id to place the order

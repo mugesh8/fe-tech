@@ -9,6 +9,7 @@ import Forum from "../components/products/Forum";
 import Technicians from "../components/products/Technicians";
 import OrderSummary from "../components/products/OrderSummary";
 import Distributors from "../components/products/Distributors";
+import DistributorsViewDetails from "../components/products/DistributorsViewDetails";
 import "../pages/Dashboard.css";
 
 export default function Dashboard() {
@@ -55,13 +56,14 @@ export default function Dashboard() {
           <main className="content-area flex-grow-1 p-4">
             <Routes>
               <Route path="products" element={<ProductList />} />
-              <Route path="productView" element={<ProductView />} />
+              <Route path="products/productView" element={<ProductView />} />
               <Route
-                path="productViewDetails/:id"
+                path="products/productViewDetails/:id"
                 element={<ProductViewDetails />}
               />
               <Route path="forum" element={<Forum />} />
               <Route path="distributors" element={<Distributors />} />
+              <Route path="Distributors/DistributorsViewDetails/:id" element={<DistributorsViewDetails />} />
               <Route path="technicians" element={<Technicians />} />
               <Route path="OrderSummary" element={<OrderSummary />} />
             </Routes>

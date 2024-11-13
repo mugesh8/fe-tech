@@ -10,6 +10,7 @@ import React, { useState } from 'react';
 import Dashboard from './admin/pages/Dashboard';
 import Login from './Auth/Login';
 import Signup from './Auth/Signup';
+import OrderHistory from './user/pages/OrderHistory';
 import PaymentSuccess from './user/pages/PaymentSuccess';
 const App = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -20,6 +21,7 @@ const App = () => {
         <Route path='/Auth/Login' element={<Login/>} />
         <Route path='/Auth/Signup' element={<Signup/>} />
         <Route path="/" element={<MainPage />} />
+        <Route path='/user/pages/OrderHistory' element={<OrderHistory />} />
         <Route path="/user/checkout" element={<PaymentSuccess/>} />
         <Route path="/user/components/SearchBarLocation" element={<SearchBarLocation />} />
         <Route path="/user/components/Card" element={<Card setCartItems={setCartItems} />} />

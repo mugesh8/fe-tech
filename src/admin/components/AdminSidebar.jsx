@@ -65,7 +65,7 @@ const AdminSidebar = ({handleBackClick}) => {
                        <a 
                          className="dropdown-item" 
                          href="/Dashboard/productView"
-                         onClick={(e) => handleNavigation('/Dashboard/productView', e)}
+                         onClick={(e) => handleNavigation('/Dashboard/products/productView', e)}
                        >
                          Product view
                        </a>

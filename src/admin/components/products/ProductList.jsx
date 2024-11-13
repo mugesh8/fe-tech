@@ -78,17 +78,17 @@ const ProductList = () => {
  
  
   return (
-    <div>
+    <div className='productListBody'>
       {/* Search and Add Product Section */}
       <div className="searches">
-        <div className="searchInputs" id="searchBox">
+        <div className="searchInputs" id="productSearchBox">
           <input type="text" className="search-input" placeholder="Search Product" />
           <div className="searchIcons">
-            <i className="bi bi-search" style={{ color: '#808080' }}></i>
+            <i className="bi bi-search" style={{ color: '#808080'}}></i>
           </div>
         </div>
         <div className="add-btn">
-          <button onClick={() => toggleModal()}>
+          <button id='addProductBtn' onClick={() => toggleModal()}>
             <i className="bi bi-plus-circle"></i> Add Product
           </button>
         </div>

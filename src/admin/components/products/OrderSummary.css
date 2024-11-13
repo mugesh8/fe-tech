@@ -42,6 +42,7 @@
     width: 100%;
     border-collapse: collapse;
     margin-top: 50px;
+    background-color: white;
 }
   
   .products-table th {
@@ -53,6 +54,7 @@
   .products-table td {
     padding: 15px;
     border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
   }
   
   .product-icon {

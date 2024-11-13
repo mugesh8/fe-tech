@@ -1,5 +1,5 @@
 .back-link{
-    display: block;
+    display: none;
 }
 
 .Dashboardlogo img{
@@ -40,6 +40,11 @@
  @media (max-width: 480px){
     .Dashboardlogo{
         display: none;
+    }
+
+    .back-link{
+        display: block;
+        margin-top: 20px;
     }
 
     .sideNavContainer{
