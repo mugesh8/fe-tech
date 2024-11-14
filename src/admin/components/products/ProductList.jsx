@@ -78,9 +78,9 @@ const ProductList = () => {
  
  
   return (
-    <div className='productListBody'>
-      {/* Search and Add Product Section */}
-      <div className="searches">
+   <>
+       {/* Search and Add Product Section */}
+       <div className="searches">
         <div className="searchInputs" id="productSearchBox">
           <input type="text" className="search-input" placeholder="Search Product" />
           <div className="searchIcons">
@@ -93,7 +93,7 @@ const ProductList = () => {
           </button>
         </div>
       </div>
- 
+     <div className='productListBody'>
        {/* Products Table */}
        <table className="products-table">
             <thead>
@@ -130,7 +130,7 @@ const ProductList = () => {
           </table>
          
       {/* Pagination UI */}
-      <div className="container d-flex mt-2" style={{flexDirection:'row',alignItems:'center', justifyContent:'space-between'}}>
+      <div className="productPagination container d-flex mt-2" style={{flexDirection:'row',alignItems:'center', justifyContent:'space-between'}}>
       <div className="results-count text-center mb-3">
         Showing {currentProducts.length===0 ? '0' : '1'} to {currentProducts.length} of {products.length} entries
       </div>
@@ -263,6 +263,7 @@ const ProductList = () => {
         </div>
       )}
     </div>
+   </>
  
   );
 };

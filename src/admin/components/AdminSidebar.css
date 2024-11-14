@@ -35,6 +35,16 @@
 .dropdown a{
     background-color: white !important;
 }
+.dropdown-menu{
+    height: max-content;
+}
+.dropdown-menu a{
+    padding: 0 !important;
+    margin-bottom: 10px !important;
+    height: 40px !important;
+    text-align: center !important;
+}
+
 
  /* Media Query for Mobile Devices */
  @media (max-width: 480px){

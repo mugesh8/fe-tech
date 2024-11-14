@@ -14,7 +14,14 @@
     border-radius: 10px;
     background: #FFFFFF;
     margin: 15px 30px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    transform: translateY(0); /* Initial position */
+}
 
+.productViewCard:hover{
+    transform: translateY(-10px); /* Slides up slightly */
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 15px 25px; /* Increases shadow for lift effect */
 }
 
 .productViewCard img {
